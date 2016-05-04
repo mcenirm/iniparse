@@ -7,7 +7,7 @@
 
 Example:
 
-    >>> from StringIO import StringIO
+    >>> from io import StringIO
     >>> sio = StringIO('''# configure foo-application
     ... [foo]
     ... bar1 = qualia
@@ -16,14 +16,14 @@ Example:
     ... special = 1''')
 
     >>> cfg = INIConfig(sio)
-    >>> print cfg.foo.bar1
+    >>> print(cfg.foo.bar1)
     qualia
-    >>> print cfg['foo-ext'].special
+    >>> print(cfg['foo-ext'].special)
     1
     >>> cfg.foo.newopt = 'hi!'
     >>> cfg.baz.enabled = 0
 
-    >>> print cfg
+    >>> print(cfg)
     # configure foo-application
     [foo]
     bar1 = qualia
@@ -639,5 +639,6 @@ class INIConfig(config.ConfigNamespace):
 
         if exc:
             raise exc
+
 
 
