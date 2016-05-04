@@ -1,9 +1,9 @@
 import re
 import unittest
 import pickle
-import ConfigParser
+import configparser
 from textwrap import dedent
-from StringIO import StringIO
+from io import StringIO
 from iniparse import compat, ini
 
 class CaseSensitiveConfigParser(compat.ConfigParser):
@@ -272,13 +272,13 @@ class test_compat(unittest.TestCase):
             ''])
 
     def test_py_rawcfg(self):
-        self.do_configparser_test(ConfigParser.RawConfigParser)
+        self.do_configparser_test(configparser.RawConfigParser)
 
     def test_py_cfg(self):
-        self.do_configparser_test(ConfigParser.ConfigParser)
+        self.do_configparser_test(configparser.ConfigParser)
 
     def test_py_safecfg(self):
-        self.do_configparser_test(ConfigParser.SafeConfigParser)
+        self.do_configparser_test(configparser.SafeConfigParser)
 
     def do_compat_test(self, cfg_class):
         c = cfg_class()

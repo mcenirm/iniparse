@@ -2,8 +2,8 @@ import re
 import os
 import random
 import unittest
-import ConfigParser
-from StringIO import StringIO
+import configparser
+from io import StringIO
 from iniparse import compat, ini, tidy
 
 # TODO:
@@ -96,19 +96,19 @@ class test_fuzz(unittest.TestCase):
                 s = '\n'.join(good_lines)
                 cc = compat.RawConfigParser()
                 cc.readfp(StringIO(s))
-                cc_py = ConfigParser.RawConfigParser()
+                cc_py = configparser.RawConfigParser()
                 cc_py.readfp(StringIO(s))
                 # compare the two configparsers
                 self.assertEqualConfig(cc_py, cc)
                 # check that tidy does not change semantics
                 tidy(cc)
-                cc_tidy = ConfigParser.RawConfigParser()
+                cc_tidy = configparser.RawConfigParser()
                 cc_tidy.readfp(StringIO(str(cc.data)))
                 self.assertEqualConfig(cc_py, cc_tidy)
             except AssertionError:
                 fname = 'fuzz-test-iter-%d.ini' % fuzz_iter
-                print 'Fuzz test failed at iteration', fuzz_iter
-                print 'Writing out failing INI file as', fname
+                print('Fuzz test failed at iteration', fuzz_iter)
+                print('Writing out failing INI file as', fname)
                 f = open(fname, 'w')
                 f.write(s)
                 f.close()
@@ -116,7 +116,7 @@ class test_fuzz(unittest.TestCase):
 
     def assertEqualConfig(self, c1, c2):
         self.assertEqualSorted(c1.sections(), c2.sections())
-        self.assertEqualSorted(c1.defaults().items(), c2.defaults().items())
+        self.assertEqualSorted(list(c1.defaults().items()), list(c2.defaults().items()))
         for sec in c1.sections():
             self.assertEqualSorted(c1.options(sec), c2.options(sec))
             for opt in c1.options(sec):
