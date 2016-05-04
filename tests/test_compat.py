@@ -3,7 +3,7 @@ import io
 import unittest
 import collections
 
-from test import test_support
+from test import support as test_support
 
 class SortedDict(collections.UserDict):
     def items(self):
